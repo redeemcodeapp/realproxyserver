@@ -1,1 +1,486 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>TERRA BOX Creator Dashboard</title></head><body><div id="root"></div><script type="module" src="/src/main.jsx"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080611">
+
+<title>PROXY SERVER</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 15% 10%, #38105c 0%, transparent 38%),
+    radial-gradient(ellipse at 90% 45%, #17104c 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 100%, #250b3b 0%, transparent 40%),
+    #080611;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .13;
+  background-image:
+    linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.glow {
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: .25;
+  pointer-events: none;
+  z-index: 0;
+  animation: float 7s ease-in-out infinite alternate;
+}
+
+.glow.one {
+  background: #a020ff;
+  top: 15%;
+  left: -120px;
+}
+
+.glow.two {
+  background: #003cff;
+  right: -120px;
+  bottom: 10%;
+}
+
+@keyframes float {
+  from { transform: translateY(-20px); }
+  to { transform: translateY(40px); }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 850px;
+  margin: auto;
+  padding: 25px 18px 55px;
+}
+
+/* HEADER */
+
+header {
+  text-align: center;
+  padding: 18px 10px 30px;
+}
+
+.logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(19px, 5vw, 29px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #fff, #bd86ff, #42e9ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 12px #9c49ff80);
+}
+
+.header-line {
+  width: 90px;
+  height: 3px;
+  border-radius: 10px;
+  margin: 13px auto 0;
+  background: linear-gradient(90deg, #a34aff, #35e9ff);
+  box-shadow: 0 0 15px #a34aff;
+}
+
+/* VIDEO */
+
+.video-section {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #d6b5ff;
+  margin-bottom: 17px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff3e78;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ff3e78;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: .25; }
+}
+
+.video-container {
+  width: 100%;
+  position: relative;
+  padding: 3px;
+  border-radius: 19px;
+  background: linear-gradient(135deg, #b44cff, #2520a9, #31e5ff, #b44cff);
+  background-size: 300% 300%;
+  animation: borderMove 5s ease infinite;
+  box-shadow: 0 0 35px #813aff35;
+}
+
+@keyframes borderMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.video-inner {
+  background: #05040b;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.video-inner video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #000;
+}
+
+/* VIDEO CONTROLS */
+
+.video-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #100b1c;
+}
+
+.play-btn {
+  background: linear-gradient(135deg, #a34aff, #5928cc);
+  border: none;
+  color: white;
+  width: 37px;
+  height: 37px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.progress {
+  flex: 1;
+  height: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  accent-color: #b34dff;
+}
+
+.time {
+  font-size: 10px;
+  color: #c6b8d8;
+  white-space: nowrap;
+}
+
+.video-caption {
+  color: #aaa0bd;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-top: 12px;
+}
+
+/* APP CARD */
+
+.app-card {
+  max-width: 560px;
+  margin: 32px auto 0;
+  padding: 3px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #b44aff, #2920a6, #36eaff, #b44aff);
+  background-size: 300% 300%;
+  animation: borderMove 5s ease infinite;
+  box-shadow: 0 15px 60px #0009, 0 0 35px #983fff25;
+}
+
+.card-inner {
+  background: linear-gradient(145deg, #171023, #0c0a16 70%);
+  border-radius: 21px;
+  padding: 25px;
+}
+
+.app-info {
+  display: flex;
+  align-items: center;
+  gap: 19px;
+}
+
+.app-icon {
+  width: 95px;
+  height: 95px;
+  border-radius: 21px;
+  object-fit: cover;
+  border: 2px solid #a968ff;
+  box-shadow: 0 0 25px #9e45ff55;
+  flex-shrink: 0;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  padding: 5px 12px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  border-radius: 20px;
+}
+
+.new {
+  color: white;
+  background: linear-gradient(90deg, #ff315f, #ff7847);
+}
+
+.premium {
+  color: white;
+  background: linear-gradient(90deg, #743cff, #ba42ff);
+}
+
+.app-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(17px, 4vw, 23px);
+  font-weight: 900;
+  color: white;
+  margin-bottom: 7px;
+}
+
+.app-desc {
+  font-size: 11px;
+  color: #b9accd;
+  line-height: 1.7;
+}
+
+.stars {
+  color: #ffd34f;
+  font-size: 17px;
+  letter-spacing: 3px;
+  margin-top: 7px;
+}
+
+/* INSTALL BUTTON */
+
+.install-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 17px;
+  margin-top: 25px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: linear-gradient(100deg, #712cff, #b42cff, #792dff);
+  background-size: 200% 200%;
+  box-shadow: 0 8px 30px #953cff55;
+  transition: .3s ease;
+  animation: buttonGlow 3s ease infinite;
+}
+
+@keyframes buttonGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.install-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px #a43cff90;
+}
+
+.install-btn:active {
+  transform: scale(.97);
+}
+
+.download-icon {
+  font-size: 23px;
+}
+
+.footer {
+  text-align: center;
+  padding-top: 30px;
+  color: #82778f;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.footer span {
+  color: #c18aff;
+}
+
+/* MOBILE */
+
+@media(max-width: 480px) {
+  .page {
+    padding: 18px 14px 40px;
+  }
+
+  .card-inner {
+    padding: 19px 15px;
+  }
+
+  .app-icon {
+    width: 76px;
+    height: 76px;
+    border-radius: 16px;
+  }
+
+  .app-info {
+    gap: 13px;
+  }
+
+  .tag {
+    padding: 4px 9px;
+    font-size: 8px;
+  }
+
+  .install-btn {
+    padding: 15px;
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<main class="page">
+
+<header>
+  <div class="logo-text">GARENA FREE FIRE TEAM</div>
+  <div class="header-line"></div>
+</header>
+
+<!-- VIDEO SECTION -->
+
+<section class="video-section">
+
+  <div class="section-label">
+    <span class="live-dot"></span>
+    WATCH FULL VIDEO
+  </div>
+
+  <div class="video-container">
+    <div class="video-inner">
+
+      <video
+        id="protectedVideo"
+        autoplay
+        playsinline
+        preload="auto"
+        controls
+        controlsList="nodownload noremoteplayback"
+        disablePictureInPicture
+      >
+        <source
+          src="https://www.image2url.com/r2/default/videos/1794492680325-b34ac71d-d623-4d00-b721-6fac46dd52cd.mov"
+          type="video/mp4"
+        >
+        Your browser does not support video playback.
+      </video>
+
+    </div>
+  </div>
+
+  <p class="video-caption">
+    WATCH THE COMPLETE VIDEO BEFORE INSTALLING
+  </p>
+
+</section>
+
+<!-- PROXY SERVER CARD DIRECTLY UNDER VIDEO -->
+
+<section class="app-card">
+
+  <div class="card-inner">
+
+    <div class="app-info">
+
+      <img
+        class="app-icon"
+        src="https://www.image2url.com/r2/default/images/1787584630957-2a2f9988-cb5a-4eac-9e31-12e52329c4a7.jpg"
+        alt="Proxy Server Logo"
+      >
+
+      <div class="text">
+
+        <div class="tags">
+          <span class="tag new">NEW</span>
+          <span class="tag premium">PREMIUM</span>
+        </div>
+
+        <h2 class="app-name">PROXY SERVER</h2>
+
+        <p class="app-desc">
+          REAL GIFT SEND PROXY SERVER
+        </p>
+
+        <div class="stars">★★★★★</div>
+
+      </div>
+
+    </div>
+
+    <a
+      href="https://terasharefile.com/s/1yqcokBwJavmzM-IAjgPdUA"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="install-btn"
+    >
+      <span class="download-icon">↓</span>
+      INSTALL NOW
+    </a>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+  POWERED BY <span>GARENA FREE FIRE TEAM</span>
+</footer>
+
+</main>
+
+</body>
+</html>
